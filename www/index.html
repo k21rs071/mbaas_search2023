@@ -14,7 +14,6 @@
         let ncmb = new NCMB(appKey, clientKey);
         // 本アプリで使うクラスの指定。const は定数の宣言。変更できない変数と思えば良い。
         const db = "m";
-
         function fetchAll() {
             let TestDataClass = ncmb.DataStore(db);
             TestDataClass.order("name", true).fetchAll()
@@ -22,6 +21,46 @@
                     showResults(results);
                 })
         }
+
+        function btnAClick(e) {
+            // 登録するレコードを用意
+            let TestDataClass = ncmb.DataStore(db);
+            let newRecord = new TestDataClass();
+            let key1 = $("#level1").val();
+            let level = $("#level2").val();
+
+            let key2 = $("#attack1").val();
+            let attack = $("#attack2").val();
+
+            let key3 = $("#defence1").val();
+            let defence = $("#defence2").val();
+
+            let key4 = $("#name1").val();
+            let name = $("#name2").val();
+            
+            
+            
+            // レコードのフィールドと値を設定
+            newRecord.set(key1,level);
+            newRecord.set(key2,attack);
+            newRecord.set(key3,defence);
+            newRecord.set(key4,name);
+            // レコードをデータベースに登録
+            newRecord.save()
+                .then(function(m) {
+                    $("#message").html("New object created with objectId: " + newRecord.objectId);
+                })
+                .catch(function(err) {
+                    $("#message").html("Failed to create new object, with error code: " + JSON.stringify(err));
+                })
+        }
+
+        $(function() {
+            $("#message").html("initialized");
+            $("#btnA").click(function(e) {
+                btnAClick(e);
+            })
+        });
 
         function searchName() {
             let name = $("#name").val();
@@ -75,7 +114,7 @@
 </head>
 
 <body>
-    <h1>mBaaS search</h1>
+    <h1>kadai</h1>
     <div>
         <label for="name">name:</label>
         <input id="name" type="text" placeholder="monster name">
@@ -84,12 +123,54 @@
         <label for="level">level:</label>
         <input id="level" type="number" placeholder="monster level">
     </div>
+    <div>
+        ↓↓↓↓↓↓↓↓↓↓REGIST↓↓↓↓↓↓↓↓↓↓
+    </div>
+
+     <div>
+        <label for="field">Field:</label>
+        <input id="level1" type="text" value="level"disabled>
+    </div>
+    <div>
+        <label for="value">Value:</label>
+        <input id="level2" type="number" >
+    </div>
+
+     <div>
+        <label for="field">Field:</label>
+        <input id="attack1" type="text"value="attack"disabled>
+    </div>
+    <div>
+        <label for="value">Value:</label>
+        <input id="attack2" type="number" >
+    </div>
+
+     <div>
+        <label for="field">Field:</label>
+        <input id="defence1" type="text"value="defence"disabled>
+    </div>
+    <div>
+        <label for="value">Value:</label>
+        <input id="defence2" type="number" >
+    </div>
+
+     <div>
+        <label for="field">Field:</label>
+        <input id="name1" type="text" value="name"disabled>
+    </div>
+    <div>
+        <label for="value">Value:</label>
+        <input id="name2" type="text" >
+    </div>
+
     <div id="button">
         <button class="btn" onclick="fetchAll()">Fetch All</button>
         <button class="btn" onclick="searchName()">Name</button><br>
         <button class="btn" onclick="searchLevelLT()">Level &lt </button>
         <button class="btn" onclick="searchLevel()">Level</button>
         <button class="btn" onclick="searchLevelGT()">Level &gt</button>
+        <button id="btnA" class="btn">Regist</button>
+        
         
     </div>
     <div id="message">message area</div>
