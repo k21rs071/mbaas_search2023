@@ -56,7 +56,7 @@
         }
 
         $(function() {
-            $("#message").html("initialized");
+            $("#message").html("　　　　　　　　　　^-^");
             $("#btnA").click(function(e) {
                 btnAClick(e);
             })
@@ -69,7 +69,7 @@
                 showResults(results);
             })
         }
-
+        // レベル検索
         function searchLevel() {
             let level = parseInt($("#level").val());
             let TestDataClass = ncmb.DataStore(db);
@@ -94,6 +94,56 @@
             })
         }
 
+        // アタック検索
+        function searchAttack() {
+            let attack = parseInt($("#attack").val());
+            let TestDataClass = ncmb.DataStore(db);
+            TestDataClass.equalTo("attack",attack).fetchAll().then(function(results){
+                showResults(results);
+            })
+        }
+
+        function searchAttackLT() {
+            let attack = parseInt($("#attack").val());
+            let TestDataClass = ncmb.DataStore(db);
+            TestDataClass.greaterThanOrEqualTo("attack",attack).fetchAll().then(function(results){
+                showResults(results);
+            })
+        }
+
+        function searchAttackGT() {
+            let attack = parseInt($("#attack").val());
+            let TestDataClass = ncmb.DataStore(db);
+            TestDataClass.lessThanOrEqualTo("attack",attack).fetchAll().then(function(results){
+                showResults(results);
+            })
+        }
+
+        // ディフェンス検索
+        function searchDefence() {
+            let defence = parseInt($("#defence").val());
+            let TestDataClass = ncmb.DataStore(db);
+            TestDataClass.equalTo("defence",defence).fetchAll().then(function(results){
+                showResults(results);
+            })
+        }
+
+        function searchDefenceLT() {
+            let defence = parseInt($("#defence").val());
+            let TestDataClass = ncmb.DataStore(db);
+            TestDataClass.greaterThanOrEqualTo("defence",defence).fetchAll().then(function(results){
+                showResults(results);
+            })
+        }
+
+        function searcDefenceGT() {
+            let defence = parseInt($("#defence").val());
+            let TestDataClass = ncmb.DataStore(db);
+            TestDataClass.lessThanOrEqualTo("defence",defence).fetchAll().then(function(results){
+                showResults(results);
+            })
+        }
+
         function showResults(results) {
             // テーブルのヘッダを生成
             let msg = "<table><tr><th>name</th><th>Lvl</th><th>attack</th><th>defence</th></tr>";
@@ -114,10 +164,10 @@
 </head>
 
 <body>
-    <h1>kadai</h1>
+    <h1>新規登録＆検索システム</h1>
     
     <div>
-        ↓↓↓↓↓↓↓↓↓↓検索↓↓↓↓↓↓↓↓↓↓↓
+    　　　　　　　　　　　検索
     </div>
     
     <div>
@@ -141,42 +191,42 @@
     </div>
 
     <div>
-        ↓↓↓↓↓↓↓↓↓↓登録↓↓↓↓↓↓↓↓↓↓↓
+        　　　　　　　　　　　登録
     </div>
 
      <div>
-        <label for="field">Field:</label>
+        <label for="field">　　　</label>
         <input id="level1" type="text" value="level"disabled>
     </div>
     <div>
-        <label for="value">Value:</label>
+        <label for="value">数値:</label>
         <input id="level2" type="number" >
     </div>
 
      <div>
-        <label for="field">Field:</label>
+        <label for="field">　　　</label>
         <input id="attack1" type="text"value="attack"disabled>
     </div>
     <div>
-        <label for="value">Value:</label>
+        <label for="value">数値:</label>
         <input id="attack2" type="number" >
     </div>
 
      <div>
-        <label for="field">Field:</label>
+        <label for="field">　　　　　　</label>
         <input id="defence1" type="text"value="defence"disabled>
     </div>
     <div>
-        <label for="value">Value:</label>
+        <label for="value">数値:</label>
         <input id="defence2" type="number" >
     </div>
 
      <div>
-        <label for="field">Field:</label>
+        <label for="field">　　　</label>
         <input id="name1" type="text" value="name"disabled>
     </div>
     <div>
-        <label for="value">Value:</label>
+        <label for="value">キャラ名:</label>
         <input id="name2" type="text" >
     </div>
 
@@ -188,13 +238,13 @@
         <button class="btn" onclick="searchLevel()">Level</button>
         <button class="btn" onclick="searchLevelGT()">Level &gt</button>
 
-        <button class="btn" onclick="searchLevelLT()">Attack &lt </button>
-        <button class="btn" onclick="searchLevel()">Attack</button>
-        <button class="btn" onclick="searchLevelGT()">Attack &gt</button>
+        <button class="btn" onclick="searchAttackLT()">Attack &lt </button>
+        <button class="btn" onclick="searchAttack()">Attack</button>
+        <button class="btn" onclick="searchAttackGT()">Attack &gt</button>
 
-        <button class="btn" onclick="searchLevelLT()">Defence&lt </button>
-        <button class="btn" onclick="searchLevel()">Defence</button>
-        <button class="btn" onclick="searchLevelGT()">Defence&gt</button>
+        <button class="btn" onclick="searchDefenceLT()">Defence&lt </button>
+        <button class="btn" onclick="searchDefence()">Defence</button>
+        <button class="btn" onclick="searchDefenceGT()">Defence&gt</button>
         
         <button id="btnA" class="btn">登録</button>
         
